@@ -1,0 +1,646 @@
+---
+import GitHubIcon from "../assets/icons/GitHubIcon.astro";
+import LinkedIn from "../assets/icons/LinkedIn.astro";
+
+const contactInfo = {
+  emailUser: "jonathannoguerales",
+  emailDomain: "gmail.com",
+  phonePrefix: "+34",
+  phoneNumbers: ["6", "4", "4", "5", "7", "3", "1", "9", "9"], 
+};
+
+const accessKey = import.meta.env.PUBLIC_ACCESS_KEY;
+---
+
+<section
+  id="contacto"
+  class="py-30 px-4"
+  aria-labelledby="contacto-heading"
+>
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <h2
+        id="contacto-heading"
+        class="text-4xl md:text-5xl font-bold text-white mb-4"
+      >
+        ¿Hablamos?
+      </h2>
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        Estoy disponible para nuevos proyectos y oportunidades. ¡No dudes en
+        contactarme!
+      </p>
+    </div>
+
+    <form
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      id="contact-form"
+      class="bg-gray-900 p-8 rounded-2xl border border-gray-800 mb-12"
+      novalidate
+    >
+      <input type="hidden" name="access_key" value={accessKey} />
+
+      <input
+        type="hidden"
+        name="subject"
+        value="🚀 Nuevo mensaje desde tu portfolio"
+      />
+      <input
+        type="hidden"
+        name="from_name"
+        value="Portfolio Jonathan Noguerales"
+      />
+      <input
+        type="checkbox"
+        name="botcheck"
+        id="botcheck"
+        class="hidden"
+        style="display: none;"
+        tabindex="-1"
+        autocomplete="off"
+      />
+
+      <div class="space-y-6">
+        <div>
+          <label
+            for="name"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Nombre <span class="text-red-500" aria-label="requerido">*</span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            minlength="2"
+            maxlength="100"
+            autocomplete="name"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="Tu nombre completo"
+            aria-required="true"
+          />
+          <p
+            class="text-xs text-red-500 mt-1 hidden"
+            id="name-error"
+            role="alert"
+          >
+            Por favor ingresa tu nombre (mínimo 2 caracteres)
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Email <span class="text-red-500" aria-label="requerido">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            autocomplete="email"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="tu@email.com"
+            aria-required="true"
+          />
+          <p
+            class="text-xs text-red-500 mt-1 hidden"
+            id="email-error"
+            role="alert"
+          >
+            Por favor ingresa un email válido
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="phone"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Teléfono <span class="text-xs text-gray-500">(opcional)</span>
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            autocomplete="tel"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+            placeholder="+34 XXX XXX XXX"
+          />
+        </div>
+
+        <div>
+          <label
+            for="message-subject"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Asunto
+          </label>
+          <select
+            name="message_subject"
+            id="message-subject"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+          >
+            <option value="Consulta General">Consulta General</option>
+            <option value="Propuesta de Trabajo">Propuesta de Trabajo</option>
+            <option value="Colaboración">Colaboración en Proyecto</option>
+            <option value="Freelance">Trabajo Freelance</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            for="message"
+            class="block text-sm font-medium text-gray-300 mb-2"
+          >
+            Mensaje <span class="text-red-500" aria-label="requerido">*</span>
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            required
+            minlength="10"
+            maxlength="1000"
+            rows="6"
+            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none"
+            placeholder="Cuéntame sobre tu proyecto, propuesta o consulta..."
+            aria-required="true"></textarea>
+          <div class="flex justify-between items-center mt-1">
+            <p
+              class="text-xs text-red-500 hidden"
+              id="message-error"
+              role="alert"
+            >
+              El mensaje debe tener al menos 10 caracteres
+            </p>
+            <p class="text-xs text-gray-500 ml-auto">
+              <span id="char-count">0</span>/1000
+            </p>
+          </div>
+        </div>
+
+        <!-- ============================================
+             Cloudflare Turnstile (Anti-Bot)
+             Obtén tu Site Key en: https://dash.cloudflare.com/
+             ============================================ -->
+        <!--         <div>
+          <div 
+            class="cf-turnstile" 
+            data-sitekey="TU_CLOUDFLARE_SITE_KEY_AQUI"
+            data-theme="dark"
+            data-size="normal"
+          ></div>
+        </div> -->
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full bg-linear-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          aria-live="polite"
+        >
+          <span id="button-text" class="flex items-center justify-center gap-2">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            Enviar Mensaje
+          </span>
+          <span
+            id="button-loading"
+            class="hidden items-center justify-center gap-2"
+          >
+            <svg
+              class="animate-spin w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Enviando...
+          </span>
+        </button>
+      </div>
+    </form>
+
+    <div id="result" class="hidden" role="status" aria-live="polite"></div>
+
+    <div class="mt-16 pt-8 border-t border-gray-800">
+      <p class="text-center text-gray-400 mb-8">O contáctame directamente:</p>
+
+      <div class="grid sm:grid-cols-2 gap-6 max-w-xl mx-auto">
+        <button
+          type="button"
+          id="email-reveal"
+          class="group flex flex-col items-center gap-3 p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-cyan-500 transition-all hover:shadow-lg hover:shadow-cyan-500/20"
+          aria-label="Revelar email"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-cyan-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Email</p>
+            <p
+              id="email-display"
+              class="text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors"
+            >
+              Click para revelar
+            </p>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          id="phone-reveal"
+          class="group flex flex-col items-center gap-3 p-6 bg-gray-900 rounded-xl border border-gray-800 hover:border-cyan-500 transition-all hover:shadow-lg hover:shadow-cyan-500/20"
+          aria-label="Revelar teléfono"
+        >
+          <div
+            class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform"
+          >
+            <svg
+              class="w-6 h-6 text-cyan-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Teléfono</p>
+            <p
+              id="phone-display"
+              class="text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors"
+            >
+              Click para revelar
+            </p>
+          </div>
+        </button>
+      </div>
+
+      <div class="flex justify-center gap-6 mt-8">
+        <a
+          href="https://linkedin.com/in/tu-perfil"
+          target="_blank"
+          rel="noopener
+        noreferrer"
+          class="w-12 h-12 rounded-full bg-gray-900 border border-gray-800 hover:border-cyan-500 flex items-center justify-center transition-all hover:scale-110"
+          aria-label="LinkedIn"
+        >
+          <LinkedIn class="size-6 text-white/80" />
+        </a>
+          <a
+            href="https://github.com/tu-usuario"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-12 h-12 rounded-full bg-gray-900 border border-gray-800 hover:border-cyan-500 flex items-center justify-center transition-all hover:scale-110"
+            aria-label="GitHub"
+          >
+            <GitHubIcon class="size-6 text-white/80" />
+          </a>
+      </div>
+
+      <!-- Cloudflare Turnstile Script -->
+      <script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer></script>
+
+      <script define:vars={{ contactInfo }}>
+        // ============================================
+        // Protección de Información de Contacto
+        // ============================================
+
+        // Construir email y teléfono de forma segura
+        const fullEmail = `${contactInfo.emailUser}@${contactInfo.emailDomain}`;
+        const fullPhone = `${contactInfo.phonePrefix} ${contactInfo.phoneNumbers.join("")}`;
+
+        // Email revelado
+        const emailReveal = document.getElementById("email-reveal");
+        const emailDisplay = document.getElementById("email-display");
+        let emailRevealed = false;
+
+        emailReveal?.addEventListener("click", () => {
+          if (!emailRevealed) {
+            emailDisplay.textContent = fullEmail;
+            emailRevealed = true;
+
+            // Copiar al portapapeles
+            navigator.clipboard.writeText(fullEmail).then(() => {
+              const originalText = emailDisplay.textContent;
+              emailDisplay.textContent = "✓ Copiado al portapapeles";
+              setTimeout(() => {
+                emailDisplay.textContent = originalText;
+              }, 2000);
+            });
+
+            // Abrir cliente de email
+            setTimeout(() => {
+              window.location.href = `mailto:${fullEmail}`;
+            }, 500);
+          }
+        });
+
+        // teléfono revelado
+        const phoneReveal = document.getElementById("phone-reveal");
+        const phoneDisplay = document.getElementById("phone-display");
+        let phoneRevealed = false;
+
+        phoneReveal?.addEventListener("click", () => {
+          if (!phoneRevealed) {
+            phoneDisplay.textContent = fullPhone;
+            phoneRevealed = true;
+
+            // Copiar al portapapeles
+            const cleanPhone = fullPhone.replace(/\s/g, "");
+            navigator.clipboard.writeText(cleanPhone).then(() => {
+              const originalText = phoneDisplay.textContent;
+              phoneDisplay.textContent = "✓ Copiado al portapapeles";
+              setTimeout(() => {
+                phoneDisplay.textContent = originalText;
+              }, 2000);
+            });
+          }
+        });
+
+        // ============================================
+        // Validación del Formulario
+        // ============================================
+
+        const form = document.getElementById("contact-form");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const messageTextarea = document.getElementById("message");
+        const charCount = document.getElementById("char-count");
+        const submitBtn = document.getElementById("submit-btn");
+        const buttonText = document.getElementById("button-text");
+        const buttonLoading = document.getElementById("button-loading");
+        const result = document.getElementById("result");
+
+        // Validación de email
+        const isValidEmail = (email) => {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        };
+
+        // Mostrar error
+        const showError = (inputId, message) => {
+          const input = document.getElementById(inputId);
+          const errorElement = document.getElementById(`${inputId}-error`);
+
+          input.classList.add("border-red-500");
+          input.setAttribute("aria-invalid", "true");
+          errorElement.classList.remove("hidden");
+          errorElement.textContent = message;
+        };
+
+        // Limpiar error
+        const clearError = (inputId) => {
+          const input = document.getElementById(inputId);
+          const errorElement = document.getElementById(`${inputId}-error`);
+
+          input.classList.remove("border-red-500");
+          input.removeAttribute("aria-invalid");
+          errorElement.classList.add("hidden");
+        };
+
+        // Validar todos los campos
+        const validateForm = () => {
+          let isValid = true;
+
+          // Validar nombre
+          if (nameInput.value.trim().length < 2) {
+            showError(
+              "name",
+              "Por favor ingresa tu nombre (mínimo 2 caracteres)"
+            );
+            isValid = false;
+          } else {
+            clearError("name");
+          }
+
+          // Validar email
+          if (!isValidEmail(emailInput.value.trim())) {
+            showError("email", "Por favor ingresa un email válido");
+            isValid = false;
+          } else {
+            clearError("email");
+          }
+
+          // Validar mensaje
+          if (messageTextarea.value.trim().length < 10) {
+            showError(
+              "message",
+              "El mensaje debe tener al menos 10 caracteres"
+            );
+            isValid = false;
+          } else {
+            clearError("message");
+          }
+
+          return isValid;
+        };
+
+        // Contador de caracteres
+        messageTextarea?.addEventListener("input", () => {
+          const count = messageTextarea.value.length;
+          charCount.textContent = count.toString();
+
+          if (count > 900) {
+            charCount.classList.add("text-red-500");
+            charCount.classList.remove("text-gray-500");
+          } else {
+            charCount.classList.remove("text-red-500");
+            charCount.classList.add("text-gray-500");
+          }
+        });
+
+        // Limpiar errores al escribir
+        [nameInput, emailInput, messageTextarea].forEach((input) => {
+          input?.addEventListener("input", () => {
+            clearError(input.id);
+          });
+        });
+
+        // ============================================
+        // Envío del Formulario
+        // ============================================
+
+        form?.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Validar antes de enviar
+          if (!validateForm()) {
+            return;
+          }
+
+          // UI: Deshabilitar botón y mostrar loading
+          submitBtn.disabled = true;
+          buttonText.classList.add("hidden");
+          buttonLoading.classList.remove("hidden");
+          buttonLoading.classList.add("flex");
+          result.classList.add("hidden");
+
+          try {
+            const formData = new FormData(form);
+
+            // Enviar a Web3Forms
+            const response = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              // ✅ Éxito
+              result.innerHTML = `
+          <div class="bg-green-900/30 border border-green-500/50 text-green-400 px-6 py-4 rounded-lg animate-fade-in">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p class="font-semibold mb-1">¡Mensaje enviado con éxito!</p>
+                <p class="text-sm text-green-300">Te responderé lo antes posible. Gracias por contactarme.</p>
+              </div>
+            </div>
+          </div>
+        `;
+              result.classList.remove("hidden");
+
+              // Resetear formulario
+              form.reset();
+              charCount.textContent = "0";
+
+              // Scroll al resultado
+              result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            } else {
+              throw new Error(data.message || "Error al enviar el mensaje");
+            }
+          } catch (error) {
+            // ❌ Error
+            console.error("Error:", error);
+            result.innerHTML = `
+        <div class="bg-red-900/30 border border-red-500/50 text-red-400 px-6 py-4 rounded-lg animate-fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-6 h-6 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <p class="font-semibold mb-1">Error al enviar el mensaje</p>
+              <p class="text-sm text-red-300">Por favor, intenta de nuevo o contáctame directamente por email.</p>
+            </div>
+          </div>
+        </div>
+      `;
+            result.classList.remove("hidden");
+            result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          } finally {
+            // UI: Rehabilitar botón
+            submitBtn.disabled = false;
+            buttonText.classList.remove("hidden");
+            buttonLoading.classList.add("hidden");
+            buttonLoading.classList.remove("flex");
+          }
+        });
+      </script>
+
+      <style>
+        /* Animación fade-in */
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out;
+        }
+
+        /* Prevenir autofill que revele información */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+          -webkit-text-fill-color: white;
+          -webkit-box-shadow: 0 0 0px 1000px #1f2937 inset;
+          transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* Accesibilidad: Focus visible mejorado */
+        input:focus,
+        textarea:focus,
+        select:focus,
+        button:focus {
+          outline: 2px solid #06b6d4;
+          outline-offset: 2px;
+        }
+
+        /* Reducir animaciones si el usuario lo prefiere */
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      </style>
+    </div>
+  </div>
+</section>

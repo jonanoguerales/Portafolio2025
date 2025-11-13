@@ -1,0 +1,91 @@
+---
+import GraduationCap from "../assets/icons/GraduationCap.astro";
+import Trabajo from "../assets/icons/Trabajo.astro";
+
+const experiences = [
+  {
+    title: "Desarrollador Full Stack",
+    company: "PYV Systems",
+    period: "Sep 2023 - Feb 2025",
+    description:
+      "Diseñé e implementé una solución Full Stack para sistemas de control de acceso y tiempo/asistencia, construida con .NET y Blazor (SPA y WebAssembly), que permitía la confi guración remota de terminales, apertura de puertas y monitorización en tiempo real del hardware propietario. Utilicé el protocolo MQTT (cliente Mosquitto) para comunicación bidireccional entre los dispositivos y el backend, y SQL Server como sistema de almacenamiento de datos. También lideré la modernización de la aplicación legacy hacia un entorno web moderno, mejorando la escalabilidad y reduciendo los tiempos de despliegue. Creé interfaces modernas con Blazor y Radzen. Colaboré en equipos ágiles con Scrum para entrega de proyectos en tiempo y forma.",
+  },
+  {
+    title: "Técnico de software",
+    company: "PYV Systems",
+    period: "Sep 2022 - Oct 2023",
+    description:
+      "Participé en el soporte y mantenimiento de aplicaciones internas, incluyendo la confi guración de controladores biométricos, terminales y subterminales de acceso de paso, principalmente para el cliente BBVA. Estuve involucrado en la automatización de tareas mediante scripts en PowerShell y SQL, colaborando estrechamente con el equipo de desarrollo para las pruebas e implementación de nuevas versiones.Realicé confi guraciones en sistemas operativos Linux y consultas SQL a bases de datos.",
+  },
+  {
+    title: "Técnico de sistemas",
+    company: "TELSYSTEM",
+    period: "Mar 2022 - Jun 2022",
+    description:
+      "Realicé mis prácticas de empresa en TELSYSTEM durante 3 meses, como técnico de sistemas, en Rivas Vaciamadrid.",
+  },
+];
+
+const courses = [
+  "Master Front End",
+  "Ciclo Formativo de Grado Superior - Desarrollo de Aplicaciones Web (DAW)",
+  "Bootcamp JavaScript/TypeScript",
+  "Ciclo Formativo de Grado Superior - Administración de Sistemas Informáticos en Red (ASIR)",
+];
+---
+
+<section id="experiencia" class="py-30 px-4">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="text-gradient-primary"> Experiencia </span>
+      </h2>
+      <div class="w-20 h-1 linear-gradient-primary mx-auto rounded-full"></div>
+    </div>
+
+    <div class="mb-16">
+      {
+        experiences.map((exp, index) => (
+          <div
+            class="relative pl-8 pb-8 border-l-2 border-cyan-400 last:pb-0 "
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
+            <div class="absolute -left-3 top-0 w-6 h-6 rounded-full bg-cyan-400 flex items-center justify-center">
+              <Trabajo class="size-4 text-black" />
+            </div>
+            <span class="text-sm text-cyan-400 font-medium">{exp.period}</span>
+
+            <div class="bg-white/4 backdrop-blur-sm rounded-xl p-6 mt-2 border border-white/10 hover:border-cyan-400 transition-all duration-300 ">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <h3 class="text-xl font-bold text-white">{exp.title}</h3>
+              </div>
+              <p class="text-white/80 font-medium mb-2">{exp.company}</p>
+              <p class="text-white/80 text-pretty">{exp.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="bg-white/4 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-2xl shadow-black/70"
+    >
+      <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+        <GraduationCap class="size-6 text-cyan-400" />
+        <span class="bg-clip-text text-gradient-primary">
+          Cursos y Certificaciones
+        </span>
+      </h3>
+      <ul class="space-y-3">
+        {
+          courses.map((course, index) => (
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 rounded-full bg-cyan-400" />
+              <span class="text-white/80 hover:text-white">{course}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

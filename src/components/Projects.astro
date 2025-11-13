@@ -1,0 +1,185 @@
+---
+import ExternalIcon from "../assets/icons/ExternalIcon.astro";
+import movilizateeLogo from "../assets/movilizateeLogo.webp";
+import movilizateeLogoTablet from "../assets/movilizateeLogoTablet.webp";
+import movilizateeLogoMovil from "../assets/movilizateeLogoMovil.webp";
+import GitHubIcon from "../assets/icons/GitHubIcon.astro";
+
+const projects = [
+  {
+    id: 1,
+    title: "Movilizatee",
+    description:
+      "Sitio web de entrenamiento personalizado para generar hábitos saludables, creado con Astro.js, React y TailwindCss",
+    image: movilizateeLogo,
+    thumbnails: [movilizateeLogo, movilizateeLogoTablet, movilizateeLogoMovil],
+    tags: ["Astro", "React", "TailwindCss"],
+    github: "https://github.com/jonanoguerales/MovilizateWeb",
+    demo: "https://movilizatee.com",
+  },
+];
+---
+
+<section id="proyectos" class="py-30 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="text-gradient-primary"> Proyectos </span>
+      </h2>
+      <div class="w-20 h-1 linear-gradient-primary mx-auto rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {
+        projects.map((project) => (
+          <article class="overflow-hidden bg-white/4 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-cyan-400 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-400/30">
+            <div class="flex items-center gap-4 p-4">
+              <div class="flex flex-col gap-3">
+                {project.thumbnails.map((thumb, i) => (
+                  <button
+                    type="button"
+                    data-project-id={project.id}
+                    data-thumbnail-src={thumb.src}
+                    class="thumbnail-btn w-12 h-12 rounded-lg border border-white/10 overflow-hidden hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/70 cursor-pointer  focus:ring-2 focus:ring-cyan-400 transition-all duration-300"
+                    aria-label={`Ver imagen ${i + 1} de ${project.title}`}
+                  >
+                    <img
+                      src={thumb.src}
+                      alt={`${project.title} miniatura ${i + 1}`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <div class="flex-1 relative">
+                <div class="relative rounded-lg overflow-hidden  ">
+                  <div class="aspect-video p-2">
+                    <div class="w-full h-full rounded overflow-hidden">
+                      <img
+                        id={`principal-img-${project.id}`}
+                        src={project.image.src}
+                        alt={`Vista previa de ${project.title}`}
+                        class="w-full h-full object-contain transition-opacity duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-2xl font-bold text-white">{project.title}</h3>
+                <ExternalIcon class="size-6 text-transparent group-hover:text-white transition-colors" />
+              </div>
+
+              <p class="text-gray-300 mb-4 leading-relaxed">
+                {project.description}
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <span class="px-3 py-1 text-xs font-medium text-cyan-400 rounded-full border border-cyan-400">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div class="flex gap-4">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-3xl px-3 py-2 text-white border border-white/10 hover:text-cyan-300 hover:border-cyan-400 transition-colors"
+                  aria-label={`Ver código de ${project.title} en GitHub`}
+                >
+                  <GitHubIcon class="size-4" />
+                  Código
+                </a>
+
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-3xl px-3 py-2 text-white border border-white/10 hover:text-purple-300 hover:border-purple-400 transition-colors"
+                  aria-label={`Ver demo de ${project.title}`}
+                >
+                  <ExternalIcon class="size-4" />
+                  Demo
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const thumbnailButtons = document.querySelectorAll(".thumbnail-btn");
+
+    thumbnailButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const projectId = button.getAttribute("data-project-id");
+        const thumbnailSrc = button.getAttribute("data-thumbnail-src");
+
+        if (projectId && thumbnailSrc) {
+          const principalImage = document.getElementById(
+            `principal-img-${projectId}`
+          ) as HTMLImageElement;
+
+          if (principalImage) {
+            principalImage.style.opacity = "0.5";
+
+            setTimeout(() => {
+              principalImage.src = thumbnailSrc;
+              principalImage.style.opacity = "1";
+            }, 150);
+          }
+        }
+      });
+    });
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    const thumbnailButtons = document.querySelectorAll(".thumbnail-btn");
+
+    thumbnailButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const projectId = button.getAttribute("data-project-id");
+        const thumbnailSrc = button.getAttribute("data-thumbnail-src");
+
+        if (projectId && thumbnailSrc) {
+          const principalImage = document.getElementById(
+            `principal-img-${projectId}`
+          ) as HTMLImageElement;
+
+          if (principalImage) {
+            principalImage.style.opacity = "0.5";
+            setTimeout(() => {
+              principalImage.src = thumbnailSrc;
+              principalImage.style.opacity = "1";
+            }, 150);
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  [id^="principal-img-"] {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [id^="principal-img-"],
+    .thumbnail-btn {
+      transition: none !important;
+    }
+  }
+</style>

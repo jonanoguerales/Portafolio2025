@@ -1,0 +1,166 @@
+---
+import Code from "../assets/icons/Code.astro";
+import Database from "../assets/icons/Database.astro";
+import Palette from "../assets/icons/Palette.astro";
+import Rocket from "../assets/icons/Rocket.astro";
+import ReactIcon from "../assets/icons/ReactIcon.astro";
+import TailwindIcon from "../assets/icons/TailwindIcon.astro";
+import TypeScriptIcon from "../assets/icons/TypeScriptIcon.astro";
+import Next from "../assets/icons/Next.astro";
+import Node from "../assets/icons/Node.astro";
+import Express from "../assets/icons/Express.astro";
+import MongoDB from "../assets/icons/MongoDB.astro";
+import PostgreSQL from "../assets/icons/PostgreSQL.astro";
+import Git from "../assets/icons/Git.astro";
+import Docker from "../assets/icons/Docker.astro";
+import Vite from "../assets/icons/Vite.astro";
+import Vitest from "../assets/icons/Vitest.astro";
+import JavaScript from "../assets/icons/JavaScript.astro";
+import HTML5 from "../assets/icons/HTML5.astro";
+import CSS3 from "../assets/icons/CSS3.astro";
+import Net from "../assets/icons/Net.astro";
+import CSharp from "../assets/icons/CSharp.astro";
+import AstroIcon from "../assets/icons/AstroIcon.astro";
+import Figma from "../assets/icons/Figma.astro";
+import SQLite from "../assets/icons/SQLite.astro";
+import SQLServer from "../assets/icons/SQLServer.astro";
+import GitHubIcon from "../assets/icons/GitHubIcon.astro";
+
+const techIconsMap: Record<string, any> = {
+  "React": ReactIcon,
+  "Tailwind CSS": TailwindIcon,
+  "TypeScript": TypeScriptIcon,
+  "Next.js": Next,
+  "Node.js": Node,
+  "Express": Express,
+  "MongoDB": MongoDB,
+  "PostgreSQL": PostgreSQL,
+  "Git": Git,
+  "Docker": Docker,
+  "Vite": Vite,
+  "Vitest": Vitest,
+  "JavaScript": JavaScript,
+  "HTML5": HTML5,
+  "CSS3": CSS3,
+  ".NET": Net,
+  "C#": CSharp,
+  "Astro": AstroIcon,
+  "Figma" : Figma,
+  "SQLite": SQLite,
+  "SQL Server": SQLServer,
+  "GitHub": GitHubIcon,
+};
+
+const skillCategories = [
+  {
+    title: "Frontend",
+    icon: Code,
+    skills: [
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "HTML5",
+      "CSS3",
+      "Astro",
+      "Blazor",
+      "Zustand"
+    ],
+    gradientFrom: "from-cyan-400",
+    gradientTo: "to-purple-400",
+    bgGradient: "from-cyan-400",
+    borderColor: "border-cyan-500/20",
+  },
+  {
+    title: "Backend",
+    icon: Database,
+    skills: [
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "PostgreSQL",
+      ".NET",
+      "C#",
+      "ASP.NET Core",
+      "REST APIs",
+      "SQL Server",
+      "SQLite",
+    ],
+    gradientFrom: "from-purple-400",
+    gradientTo: "to-purple-500",
+    bgGradient: "from-purple-400",
+    borderColor: "border-purple-500/20",
+  },
+  {
+    title: "Design",
+    icon: Palette,
+    skills: [
+      "Figma",
+      "Jira",
+    ],
+    gradientFrom: "from-purple-400",
+    gradientTo: "to-cyan-500",
+    bgGradient: "from-blue-400",
+    borderColor: "border-blue-500/20",
+  },
+  {
+    title: "Tools",
+    icon: Rocket,
+    skills: ["Git", "GitHub", "Docker", "CI/CD", "Jest", "Webpack", "Vite", "Vitest", "Selenium."],
+    gradientFrom: "from-cyan-500",
+    gradientTo: "to-purple-400",
+    bgGradient: "from-cyan-700",
+    borderColor: "border-purple-500/20",
+  },
+];
+---
+
+<section id="tecnologias" class="py-30 px-4">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="text-gradient-primary"> Tecnologías </span>
+      </h2>
+      <div class="w-20 h-1 linear-gradient-primary mx-auto rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {skillCategories.map((category) => (
+        <article class="bg-white/4 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-cyan-400 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-400/30">
+          <div
+            class={`w-12 h-12 rounded-xl bg-linear-to-br ${category.bgGradient} ${category.borderColor} ${category.gradientFrom} ${category.gradientTo} flex items-center justify-center mb-4`}
+          >
+            <category.icon class="size-6 text-black" />
+          </div>
+
+          <h3 class="text-xl font-bold mb-4 text-white/80">
+            {category.title}
+          </h3>
+
+          <div class="flex flex-wrap gap-2">
+            {category.skills.map((skill) => {
+              const TechIcon = techIconsMap[skill];
+              
+              return (
+                <div class="flex items-center gap-3 px-3 py-2 rounded-lg border border-white/10 hover:border-cyan-400 hover:bg-white/5 transition-all duration-300 group/skill">
+                  {TechIcon ? (
+                    <div class="size-5 shrink-0 transition-transform group-hover/skill:scale-110">
+                      <TechIcon class="size-5" />
+                    </div>
+                  ) : (
+                    <div class="size-5 shrink-0 rounded bg-gray-700/50" />
+                  )}
+
+                  <span class="text-sm text-white/80 group-hover/skill:text-cyan-400 transition-colors font-medium">
+                    {skill}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
